@@ -17,7 +17,7 @@ def pin_to_ipfs(data):
     assert isinstance(data, dict), f"Error pin_to_ipfs expects a dictionary"
     print("This is the input dictionary:", data)
     response = requests.post(url, json=data, headers=headers)
-    if response.status_code == 200:
+    if response.status_code == 200:  # Checks if the status code is 200 (successful request).
         cid = response.json()["IpfsHash"]
         print(f"✅ JSON pinned successfully! CID: {cid}")
         return cid
@@ -36,7 +36,7 @@ def get_from_ipfs(cid, content_type="json"):
     response = requests.get(url)
     data = response.json()  # Convert JSON response back to a dictionary
     assert isinstance(data, dict), f"get_from_ipfs should return a dict"
-    if response.status_code == 200:
+    if response.status_code == 200:  # Checks if the status code is 200 (successful request).
         print("✅ JSON retrieved successfully!")
         return data
     else:
