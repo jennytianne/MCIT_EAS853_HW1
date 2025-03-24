@@ -11,7 +11,7 @@ infura_url = f"https://mainnet.infura.io/v3/{infura_token}"
 '''
 
 def connect_to_eth():
-	url = "https://eth-mainnet.g.alchemy.com/v2/BnMvbBO9hx8A9CycZiP9jwDi2848y6vq"  # FILL THIS IN
+	url = "https://eth-mainnet.g.alchemy.com/v2/BnMvbBO9hx8A9CycZiP9jwDi2848y6vq"  # I'm using Alchemy to connect to Ethereum
 	w3 = Web3(HTTPProvider(url))
 	assert w3.is_connected(), f"Failed to connect to provider at {url}"
 	return w3
@@ -24,9 +24,8 @@ def connect_with_middleware(contract_json):
 		address = d['address']
 		abi = d['abi']
 
-	# TODO complete this method
 	# The first section will be the same as "connect_to_eth()" but with a BNB url
-	# Connect to BNB testnet
+	# Connect to BNB testnet: copied one url from this website: https://chainlist.org/chain/97?testnets=true
 	bnb_testnet_url = "https://bsc-testnet.public.blastapi.io"
 	w3 = Web3(HTTPProvider(bnb_testnet_url))
 
