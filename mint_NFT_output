@@ -1,0 +1,10 @@
+/usr/local/bin/python3.9 /Users/jennytian/Documents/GitHub/MCIT_EAS853_HW1/mint_NFT.py
+Connected to Avalanche Fuji Testnet
+NFT contract loaded successfully!
+[<Function approve(address,uint256)>, <Function balanceOf(address)>, <Function claim(address,bytes32)>, <Function combine(address,uint256,uint256)>, <Function exists(uint256)>, <Function gcd(uint256,uint256)>, <Function getApproved(uint256)>, <Function isApprovedForAll(address,address)>, <Function maxId()>, <Function name()>, <Function owner()>, <Function ownerOf(uint256)>, <Function renounceOwnership()>, <Function repossess(uint256,uint256)>, <Function repossessAll(uint256)>, <Function retire()>, <Function safeTransferFrom(address,address,uint256)>, <Function safeTransferFrom(address,address,uint256,bytes)>, <Function setApprovalForAll(address,bool)>, <Function supportsInterface(bytes4)>, <Function symbol()>, <Function tokenByIndex(uint256)>, <Function tokenOfOwnerByIndex(address,uint256)>, <Function tokenURI(uint256)>, <Function totalSupply()>, <Function transferFrom(address,address,uint256)>, <Function transferOwnership(address)>]
+nonce: 0xbb1f688a6b3aa7a7fb8164e62c74dc29ae200a503e128aec65444e2e5d9bfc6b
+Transaction sent! Tx hash: 0xa9041c9676df9b0897d3e703f5b16afcf7fac091d8eccc6fae366750c9bd414e
+Waiting for transaction to be mined...
+Transaction mined! Gas used: 145802
+
+Process finished with exit code 0
