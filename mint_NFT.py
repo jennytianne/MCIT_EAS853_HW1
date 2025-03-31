@@ -61,8 +61,10 @@ tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
 tx_hash_hex = w3.to_hex(tx_hash)
 print(f"Transaction sent! Tx hash: {tx_hash_hex}")
 
-# Optionally wait for transaction receipt
-print("Waiting for transaction to be mined...")
+# Get transaction receipt and see how much AVAX was spent:
 tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-print(f"Transaction mined! Gas used: {tx_receipt.gasUsed}")
 print(f"Transaction receipt: {tx_receipt}")
+
+print(f"Transaction mined! Gas used: {tx_receipt.gasUsed}")
+avax_cost = (tx_receipt.gasUsed * w3.eth.gas_price) / 10**18
+print(f"Transaction cost: {avax_cost} AVAX")
