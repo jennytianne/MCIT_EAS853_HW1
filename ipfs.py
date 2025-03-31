@@ -48,3 +48,6 @@ def get_from_ipfs(cid, content_type="json"):
 # cid = pin_to_ipfs(data)
 # retrieved_data = get_from_ipfs(cid)
 # print("Retrieved JSON:", retrieved_data)
+
+
+print(get_from_ipfs("QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/1"))
