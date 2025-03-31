@@ -68,3 +68,7 @@ print(f"Transaction receipt: {tx_receipt}")
 print(f"Transaction mined! Gas used: {tx_receipt.gasUsed}")
 avax_cost = (tx_receipt.gasUsed * w3.eth.gas_price) / 10**18
 print(f"Transaction cost: {avax_cost} AVAX")
+
+# Check the number of NFTs owned by the wallet address
+balance = contract.functions.balanceOf(wallet_address).call()
+print(f"Number of NFTs owned by {wallet_address}: {balance}")
