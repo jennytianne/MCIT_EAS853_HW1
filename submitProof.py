@@ -38,6 +38,14 @@ def merkle_assignment():
         tx_hash = send_signed_msg(proof, leaves[random_leaf_index])
         print(f"Transaction hash: {tx_hash}")
 
+def is_prime(n):
+    """Check if a number is prime."""
+    if n <= 1:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
 
 def generate_primes(num_primes):
     """
@@ -47,17 +55,14 @@ def generate_primes(num_primes):
     primes = []
     num = 2
     while len(primes) < num_primes:
-        is_prime = True
-        for prime in primes:
-            if prime * prime > num:
-                break
-            if num % prime == 0:
-                is_prime = False
-                break
-        if is_prime:
+        if is_prime(num):
             primes.append(num)
         num += 1
     return primes
+
+def prime_to_bytes32(prime):
+        #return Web3.solidity_keccak(['uint256'], [prime])
+    return prime.to_bytes(32, 'big')
 
 
 def convert_leaves(primes_list):
@@ -65,8 +70,8 @@ def convert_leaves(primes_list):
         Converts the leaves (primes_list) to bytes32 format
         returns list of primes where list entries are bytes32 encodings of primes_list entries
     """
-    return [Web3.solidity_keccak(['uint256'], [prime]) for prime in primes_list]
-
+    leaves = [prime_to_bytes32(prime) for prime in primes_list]
+    return leaves
 
 def build_merkle(leaves):
     """
@@ -243,3 +248,6 @@ def hash_pair(a, b):
 
 if __name__ == "__main__":
     merkle_assignment()
+
+
+
