@@ -83,7 +83,7 @@ def build_merkle(leaves):
             if i + 1 < len(current_layer):
                 next_layer.append(hash_pair(current_layer[i], current_layer[i + 1]))
             else:
-                next_layer.append(hash_pair(current_layer[i], current_layer[i]))
+                next_layer.append(current_layer[i])
         tree.append(next_layer)
     return tree
 
@@ -95,16 +95,21 @@ def prove_merkle(merkle_tree, random_indx):
         parent hash values, up to index -1 which is the list of the root hash.
         returns a proof of inclusion as list of values
     """
+
     proof = []
     index = random_indx
-    for layer in merkle_tree[:-1]:
-        pair_index = index ^ 1
-        if pair_index < len(layer):
-            proof.append(layer[pair_index])
-        index //= 2
-    proof.insert(0, merkle_tree[0][random_indx]) 
-    return proof
 
+    for layer in merkle_tree[:-1]:  # Exclude root
+        if len(layer) == 1:  # Reached root level
+            break
+        # If index is even, sibling is right (index + 1), if odd, sibling is left (index - 1)
+        sibling_index = index + 1 if index % 2 == 0 else index - 1
+        if sibling_index < len(layer):
+            proof.append(layer[sibling_index])
+        # Move to parent index for next layer
+        index //= 2
+
+    return proof
 
 def sign_challenge(challenge):
     """
