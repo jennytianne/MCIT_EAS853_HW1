@@ -75,18 +75,26 @@ def build_merkle(leaves):
         tree[1] is the parent hashes, and so on until tree[n] which is the root hash
         the root hash produced by the "hash_pair" helper function
     """
+
+    if not leaves:
+        return []
+
     tree = [leaves]
-    while len(tree[-1]) > 1:
-        current_layer = tree[-1]
+    current_layer = leaves
+
+    while len(current_layer) > 1:
         next_layer = []
         for i in range(0, len(current_layer), 2):
             if i + 1 < len(current_layer):
+                # Normal pair hashing
                 next_layer.append(hash_pair(current_layer[i], current_layer[i + 1]))
             else:
-                next_layer.append(current_layer[i])
+                # Odd leaf: hash with itself (OpenZeppelin style)
+                next_layer.append(hash_pair(current_layer[i], current_layer[i]))
         tree.append(next_layer)
-    return tree
+        current_layer = next_layer
 
+    return tree
 
 def prove_merkle(merkle_tree, random_indx):
     """
@@ -99,14 +107,17 @@ def prove_merkle(merkle_tree, random_indx):
     proof = []
     index = random_indx
 
-    for layer in merkle_tree[:-1]:  # Exclude root
-        if len(layer) == 1:  # Reached root level
-            break
-        # If index is even, sibling is right (index + 1), if odd, sibling is left (index - 1)
-        sibling_index = index + 1 if index % 2 == 0 else index - 1
-        if sibling_index < len(layer):
+    for layer in merkle_tree[:-1]:  # Up to but not including root
+        if index % 2 == 0:  # Even index: sibling is to the right
+            sibling_index = index + 1
+        else:  # Odd index: sibling is to the left
+            sibling_index = index - 1
+
+        # Only append sibling if it exists in the layer
+        if 0 <= sibling_index < len(layer):
             proof.append(layer[sibling_index])
-        # Move to parent index for next layer
+
+        # Move to parent index
         index //= 2
 
     return proof
